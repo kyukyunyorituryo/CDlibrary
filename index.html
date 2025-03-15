@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>テキストソート＆コピー</title>
+</head>
+<body>
+
+    <h2>タイトルを入力（1行ずつ）</h2>
+    <textarea id="textInput" rows="6" cols="50">尾崎豊 - 愛すべきものすべてに
+King Gnu - CEREMONY
+絢香 - The beginning</textarea>
+    <br>
+    <button onclick="processText()">ソートしてコピー</button>
+
+    <h3>結果</h3>
+    <textarea id="output" rows="6" cols="50" readonly></textarea>
+
+    <script>
+        function processText() {
+            // テキストエリアからデータ取得
+            const textData = document.getElementById("textInput").value.trim();
+            // 改行ごとに分割して配列化
+            let folderNames = textData.split("\n");
+            //フルパスからフォルダー名を取得する
+            let titles = folderNames.map(p => p.split('\\').pop());
+            // 自然ソート（日本語対応）
+            titles.sort((a, b) => a.localeCompare(b, 'ja', { numeric: true }));
+
+            // JSONデータ作成（デバッグ用）
+            const jsonData = JSON.stringify(titles);
+
+            // ソート結果をテキストエリアに表示
+            document.getElementById("output").value = titles.join("\n");
+
+            // クリップボードにコピー
+            navigator.clipboard.writeText(titles.join("\n")).then(() => {
+                alert("コピーしました！");
+            }).catch(err => {
+                console.error("コピーに失敗:", err);
+            });
+        }
+    </script>
+
+</body>
+</html>
