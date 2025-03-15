@@ -9,3 +9,5 @@
 * CDlibraryのページを開いて貼り付けソートしてコピーをクリックすると名前順に並んだ一覧が取得できる。
 
 ブラウザで動作するようにした。
+
+https://kyukyunyorituryo.github.io/CDlibrary/
